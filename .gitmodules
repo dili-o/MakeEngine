@@ -1,0 +1,3 @@
+[submodule "MakeEngine/vendor/spdlog"]
+	path = MakeEngine/vendor/spdlog
+	url = https://github.com/gabime/spdlog
