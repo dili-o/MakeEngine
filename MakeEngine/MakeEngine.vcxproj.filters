@@ -4,6 +4,15 @@
     <Filter Include="MakeEngine">
       <UniqueIdentifier>{D90C3557-C5C4-76A4-2ECC-4F001AA31195}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MakeEngine\Events">
+      <UniqueIdentifier>{9DAAD2AE-09C1-D044-5238-5C66BE8DA1CC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\MakeEngine.h" />
@@ -16,9 +25,28 @@
     <ClInclude Include="src\MakeEngine\EntryPoint.h">
       <Filter>MakeEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\MakeEngine\Events\ApplicationEvent.h">
+      <Filter>MakeEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MakeEngine\Events\Event.h">
+      <Filter>MakeEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MakeEngine\Events\KeyEvent.h">
+      <Filter>MakeEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MakeEngine\Events\MouseEvent.h">
+      <Filter>MakeEngine\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\MakeEngine\Log.h">
       <Filter>MakeEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\MakeEngine\Window.h">
+      <Filter>MakeEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mkpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\MakeEngine\Application.cpp">
@@ -27,5 +55,9 @@
     <ClCompile Include="src\MakeEngine\Log.cpp">
       <Filter>MakeEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mkpch.cpp" />
   </ItemGroup>
 </Project>

@@ -10,6 +10,13 @@ workspace "MakeEngine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "MakeEngine/vendor/GLFW/include"
+
+include "MakeEngine/vendor/GLFW"
+
+
 project "MakeEngine"
 	location "MakeEngine"
 	kind "SharedLib"
@@ -17,6 +24,9 @@ project "MakeEngine"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	pchheader "mkpch.h"
+	pchsource "MakeEngine/src/mkpch.cpp"
 
 	files
 	{
@@ -26,7 +36,15 @@ project "MakeEngine"
 
 	includedirs
 	{
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/src",
+		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"

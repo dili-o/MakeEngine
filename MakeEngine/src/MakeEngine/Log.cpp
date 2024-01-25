@@ -1,5 +1,5 @@
+#include "mkpch.h"
 #include "Log.h"
-
 
 namespace MK {
 	std::shared_ptr<spdlog::logger> Log::s_CoreLogger;
