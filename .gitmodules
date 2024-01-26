@@ -4,3 +4,6 @@
 [submodule "MakeEngine/vendor/GLFW"]
 	path = MakeEngine/vendor/GLFW
 	url = https://github.com/TheCherno/GLFW
+[submodule "MakeEngine/vendor/imgui"]
+	path = MakeEngine/vendor/imgui
+	url = https://github.com/TheCherno/imgui

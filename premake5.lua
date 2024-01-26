@@ -1,6 +1,6 @@
 workspace "MakeEngine"
 	architecture "x64"
-
+	startproject "Sandbox"
 	configurations
 	{
 		"Debug",
@@ -13,8 +13,14 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "MakeEngine/vendor/GLFW/include"
+IncludeDir["Glad"] = "MakeEngine/vendor/Glad/include"
+IncludeDir["ImGui"] = "MakeEngine/vendor/imgui"
 
 include "MakeEngine/vendor/GLFW"
+include "MakeEngine/vendor/Glad"
+include "MakeEngine/vendor/ImGui"
+
+
 
 
 project "MakeEngine"
@@ -38,12 +44,16 @@ project "MakeEngine"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}"
 	}
 
 	links
 	{
 		"GLFW",
+		"Glad",
+		"ImGui",
 		"opengl32.lib"
 	}
 
@@ -55,7 +65,8 @@ project "MakeEngine"
 		defines
 		{
 			"MK_PLATFORM_WINDOWS",
-			"MK_BUILD_DLL"
+			"MK_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
@@ -65,14 +76,17 @@ project "MakeEngine"
 
 	filter "configurations:Debug"
 		defines "MK_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "MK_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "MK_DIST"
+		buildoptions "/MD"
 		optimize "On"
 
 project "Sandbox"
@@ -112,12 +126,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "MK_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "MK_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "MK_DIST"
+		buildoptions "/MD"
 		optimize "On"
