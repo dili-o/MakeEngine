@@ -1,5 +1,8 @@
 #include <MakeEngine.h>
 
+#include "imgui/imgui.h"
+
+
 class ExampleLayer : public MK::Layer
 {
 public:
@@ -11,6 +14,11 @@ public:
 	void OnUpdate() override
 	{
 		//MK_INFO("ExampleLayer::Update");
+	}
+
+	virtual void OnImGuiRender() override
+	{
+		
 	}
 
 	void OnEvent(MK::Event& event) override
@@ -33,7 +41,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new MK::ImGuiLayer());
 	}
 	~Sandbox()
 	{

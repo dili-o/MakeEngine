@@ -1,11 +1,15 @@
 #pragma once
 
 #ifdef MK_PLATFORM_WINDOWS
+#if MK_DYNAMIC_LINK
 	#ifdef MK_BUILD_DLL
 		#define MK_API __declspec(dllexport)
 	#else
 		#define MK_API __declspec(dllimport)
 	#endif // MK_BUILD_DLL
+#else 
+	#define MK_API
+#endif
 #else
 	#error Platform not supported
 #endif // MK_PLATFORM_WINDOWS

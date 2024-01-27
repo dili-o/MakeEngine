@@ -3,6 +3,7 @@
 #include "Core.h"
 #include "MakeEngine/Events/ApplicationEvent.h"
 #include "MakeEngine/LayerStack.h"
+#include "MakeEngine/ImGui/ImGuiLayer.h"
 #include "Window.h"
 
 
@@ -26,6 +27,7 @@ namespace MK {
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 

@@ -4,6 +4,7 @@
 
 extern MK::Application* MK::CreateApplication();
 
+
 int main(int argc, char** argv)
 {
 	MK::Log::Init();
