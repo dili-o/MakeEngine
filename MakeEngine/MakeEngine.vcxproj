@@ -159,6 +159,7 @@
     <ClInclude Include="src\MakeEngine\Log.h" />
     <ClInclude Include="src\MakeEngine\MouseButtonCodes.h" />
     <ClInclude Include="src\MakeEngine\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\MakeEngine\Renderer\Shader.h" />
     <ClInclude Include="src\MakeEngine\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
@@ -587,6 +588,7 @@
     <ClCompile Include="src\MakeEngine\Layer.cpp" />
     <ClCompile Include="src\MakeEngine\LayerStack.cpp" />
     <ClCompile Include="src\MakeEngine\Log.cpp" />
+    <ClCompile Include="src\MakeEngine\Renderer\Shader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />

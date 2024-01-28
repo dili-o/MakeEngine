@@ -18,6 +18,11 @@ namespace MK {
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		MK_CORE_ASSERT(status, "Failed to initialize Glad!");
+
+		MK_CORE_INFO("OpenGL Info:");
+		MK_CORE_INFO("Vendor: {0}", (const char*)glGetString(GL_VENDOR));
+		MK_CORE_INFO("Renderer: {0}", (const char*)glGetString(GL_RENDERER));
+		MK_CORE_INFO("Version: {0}", (const char*)glGetString(GL_VERSION));
 	}
 
 	void OpenGLContext::SwapBuffers()
