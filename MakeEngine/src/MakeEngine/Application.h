@@ -9,6 +9,8 @@
 #include "MakeEngine/Renderer/Buffer.h"
 #include "MakeEngine/Renderer/VertexArray.h"
 
+#include "MakeEngine/Renderer/PerspectiveCamera.h"
+
 #include "MakeEngine/LayerStack.h"
 #include "MakeEngine/ImGui/ImGuiLayer.h"
 
@@ -39,6 +41,8 @@ namespace MK {
 
 		std::shared_ptr<Shader> m_Shader;
 		std::shared_ptr<VertexArray> m_VertexArray;
+
+		PerspectiveCamera m_Camera;
 	private:
 		static Application* s_Instance;
 	};

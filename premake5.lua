@@ -15,6 +15,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "MakeEngine/vendor/GLFW/include"
 IncludeDir["Glad"] = "MakeEngine/vendor/Glad/include"
 IncludeDir["ImGui"] = "MakeEngine/vendor/imgui"
+IncludeDir["glm"] = "MakeEngine/vendor/glm"
 
 
 group "Dependencies"
@@ -57,6 +58,7 @@ project "MakeEngine"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
+		"%{IncludeDir.glm}",
 		"%{IncludeDir.ImGui}"
 	}
 
