@@ -4,11 +4,12 @@
 
 #include "Window.h"
 #include "MakeEngine/Events/ApplicationEvent.h"
-#include "MakeEngine/LayerStack.h"
+
 #include "MakeEngine/Renderer/Shader.h"
 #include "MakeEngine/Renderer/Buffer.h"
+#include "MakeEngine/Renderer/VertexArray.h"
 
-
+#include "MakeEngine/LayerStack.h"
 #include "MakeEngine/ImGui/ImGuiLayer.h"
 
 
@@ -36,11 +37,8 @@ namespace MK {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		unsigned int m_VertexArray;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
-		std::unique_ptr<Shader> m_Shader;
-
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
 	private:
 		static Application* s_Instance;
 	};
