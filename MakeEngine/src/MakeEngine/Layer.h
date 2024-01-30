@@ -3,6 +3,7 @@
 #include "MakeEngine/Core.h"
 #include "MakeEngine/Events/Event.h"
 
+#include "MakeEngine/Core/Timestep.h"
 namespace MK {
 
 	class MK_API Layer
@@ -13,7 +14,7 @@ namespace MK {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnEvent(Event& event) {}
 		virtual void OnImGuiRender() {};
 

@@ -146,6 +146,7 @@
     <ClInclude Include="src\MakeEngine.h" />
     <ClInclude Include="src\MakeEngine\Application.h" />
     <ClInclude Include="src\MakeEngine\Core.h" />
+    <ClInclude Include="src\MakeEngine\Core\Timestep.h" />
     <ClInclude Include="src\MakeEngine\EntryPoint.h" />
     <ClInclude Include="src\MakeEngine\Events\ApplicationEvent.h" />
     <ClInclude Include="src\MakeEngine\Events\Event.h" />

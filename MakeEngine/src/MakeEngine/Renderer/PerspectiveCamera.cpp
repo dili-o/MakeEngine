@@ -39,15 +39,18 @@ namespace MK {
             Position += Right * velocity;
             break;
         case Camera_Movement::UP:
-            //Position += Up * velocity;
             Position += glm::vec3(0.f, 1.f, 0.f) * velocity;
             break;
         case Camera_Movement::DOWN:
             Position -= glm::vec3(0.f, 1.f, 0.f) * velocity;
+            break;
         default:
             break;
         }
+        m_ViewMatrix = glm::lookAt(Position, Position + Front, Up);
+        m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
     }
+
     void PerspectiveCamera::ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch)
     {
         xoffset *= MouseSensitivity;

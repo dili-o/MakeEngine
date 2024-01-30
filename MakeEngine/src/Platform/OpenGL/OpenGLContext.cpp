@@ -16,6 +16,7 @@ namespace MK {
 	void OpenGLContext::Init()
 	{
 		glfwMakeContextCurrent(m_WindowHandle);
+		glfwSetInputMode(m_WindowHandle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		MK_CORE_ASSERT(status, "Failed to initialize Glad!");
 
