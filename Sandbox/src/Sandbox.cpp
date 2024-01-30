@@ -90,6 +90,7 @@ public:
 			layout(location = 1) in vec3 a_Color;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_ModelMatrix;
 
 			out vec3 v_Position;
 			out vec3 v_Color;
@@ -98,7 +99,7 @@ public:
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_ModelMatrix * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -140,21 +141,25 @@ public:
 
 
 		MK::Renderer::BeginScene(m_Camera);
+		glm::mat4 model = glm::scale(glm::mat4(1.f), glm::vec3(10.f, 0.2f, 10.0f));
+		MK::Renderer::Submit(m_Shader, m_VertexArray, model);
 
-		MK::Renderer::Submit(m_Shader, m_VertexArray);
+		model = glm::mat4(1.f);
+		MK::Renderer::Submit(m_Shader, m_VertexArray, model);
 
 		MK::Renderer::EndScene();
 	}
 
 	virtual void OnImGuiRender() override
 	{
-		
+
 	}
 
 	void OnEvent(MK::Event& event) override
 	{
 		MK::EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<MK::MouseMovedEvent>(MK_BIND_EVENT_FN(ExampleLayer::OnMouseMovedEvent));
+		dispatcher.Dispatch<MK::MouseScrolledEvent>(MK_BIND_EVENT_FN(ExampleLayer::OnMouseScrolledEvent));
 	}
 
 	bool OnMouseMovedEvent(MK::MouseMovedEvent& event)
@@ -176,6 +181,13 @@ public:
 
 		m_Camera.ProcessMouseMovement(xoffset, yoffset);
 
+		return true;
+	}
+
+	bool OnMouseScrolledEvent(MK::MouseScrolledEvent& event)
+	{
+		MK_TRACE("Mouse YScroll: {0}", event.GetYOffset());
+		m_Camera.ProcessMouseScroll(event.GetYOffset());
 		return true;
 	}
 

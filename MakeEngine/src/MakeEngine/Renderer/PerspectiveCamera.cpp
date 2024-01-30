@@ -4,14 +4,14 @@
 namespace MK {
     PerspectiveCamera::PerspectiveCamera(glm::vec3 position, glm::vec3 worldUp, float yaw, float pitch)
         : Position(position), Front(glm::vec3(0.0f, 0.0f, 0.0f)), WorldUp(worldUp), Yaw(yaw), Pitch(pitch),
-        MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
+        MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY)
     {
         m_ProjectionMatrix = glm::perspective(glm::radians(Fov), 1280.f / 780.f, 0.1f, 100.0f);
         updateCameraVectors();
     }
 
     PerspectiveCamera::PerspectiveCamera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch)
-        : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
+        : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY)
     {
         Position = glm::vec3(posX, posY, posZ);
         WorldUp = glm::vec3(upX, upY, upZ);
@@ -74,11 +74,12 @@ namespace MK {
 
     void PerspectiveCamera::ProcessMouseScroll(float yoffset)
     {
-        Zoom -= (float)yoffset;
-        if (Zoom < 1.0f)
-            Zoom = 1.0f;
-        if (Zoom > 45.0f)
-            Zoom = 45.0f;
+        Fov -= (float)yoffset;
+        if (Fov < MinFov)
+            Fov = MinFov;
+        if (Fov > MaxFov)
+            Fov = MaxFov;
+        m_ProjectionMatrix = glm::perspective(glm::radians(Fov), 1280.f / 780.f, 0.1f, 100.0f);
     }
 
     void PerspectiveCamera::updateCameraVectors()

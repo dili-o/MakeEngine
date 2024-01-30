@@ -10,7 +10,7 @@
 #define PITCH 0.0f
 #define SPEED 5.5f
 #define SENSITIVITY 0.1f
-#define ZOOM 45.0f
+#define FOV 45.0f
 #define MAX_PITCH 89.f
 
 namespace MK {
@@ -38,7 +38,7 @@ namespace MK {
         glm::vec3 Right;
         float MinFov = 1.0f;
         float MaxFov = 90.f;
-        float Fov = 90.f;
+        float Fov = FOV;
         // camera world attributes
         glm::vec3 Position;
         glm::vec3 WorldUp;
@@ -48,7 +48,6 @@ namespace MK {
         // camera options
         float MovementSpeed;
         float MouseSensitivity;
-        float Zoom;
 
         // constructor with vectors
         PerspectiveCamera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 worldUp = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH);
