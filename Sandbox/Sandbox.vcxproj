@@ -141,6 +141,11 @@
       <Project>{D90C3557-C5C4-76A4-2ECC-4F001AA31195}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\CastleBricksE_S.jpg" />
+    <Image Include="assets\textures\stonebrick.png" />
+    <Image Include="assets\textures\window.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

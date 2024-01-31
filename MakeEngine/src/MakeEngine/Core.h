@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #ifdef MK_PLATFORM_WINDOWS
 #if MK_DYNAMIC_LINK
 	#ifdef MK_BUILD_DLL
@@ -29,3 +31,11 @@
 #define MK_BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
 
 #define BIT(x) (1 << x)
+
+namespace MK {
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+}

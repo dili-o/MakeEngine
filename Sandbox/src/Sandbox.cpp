@@ -1,6 +1,7 @@
 #include <MakeEngine.h>
 
 #include "imgui/imgui.h"
+//#include <Platform/OpenGL/OpenGLShader.h>
 
 
 class ExampleLayer : public MK::Layer
@@ -21,48 +22,48 @@ public:
 
 		float cubeVertices[] = {
 			// Front face
-			-0.5f, -0.5f, 0.5f, 0.8f, 0.8f, 0.2f,
-			 0.5f, -0.5f, 0.5f, 0.2f, 0.8f, 0.2f,
-			 0.5f,  0.5f, 0.5f, 0.8f, 0.2f, 0.8f,
-			-0.5f,  0.5f, 0.5f, 0.2f, 0.8f, 0.8f,
+			-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.5f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.5f, 0.0f, 1.0f,
 
 			// Back face
-			-0.5f, -0.5f, -0.5f, 0.8f, 0.8f, 0.2f,
-			 0.5f, -0.5f, -0.5f, 0.2f, 0.8f, 0.2f,
-			 0.5f,  0.5f, -0.5f, 0.8f, 0.2f, 0.8f,
-			-0.5f,  0.5f, -0.5f, 0.2f, 0.8f, 0.8f,
+			-0.5f, -0.5f, -0.5f, 1.0f, 0.0f,
+			 0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
+			 0.5f,  0.5f, -0.5f, 0.0f, 1.0f,
+			-0.5f,  0.5f, -0.5f, 1.0f, 1.0f,
 
 			// Left face
-			-0.5f, -0.5f, -0.5f, 0.8f, 0.8f, 0.2f,
-			-0.5f,  0.5f, -0.5f, 0.2f, 0.8f, 0.2f,
-			-0.5f,  0.5f,  0.5f, 0.8f, 0.2f, 0.8f,
-			-0.5f, -0.5f,  0.5f, 0.2f, 0.8f, 0.8f,
+			-0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
+			-0.5f,  0.5f, -0.5f, 0.0f, 1.0f,
+			-0.5f,  0.5f,  0.5f, 1.0f, 1.0f,
+			-0.5f, -0.5f,  0.5f, 1.0f, 0.0f,
 
 			// Right face
-			0.5f, -0.5f, -0.5f, 0.8f, 0.8f, 0.2f,
-			0.5f,  0.5f, -0.5f, 0.2f, 0.8f, 0.2f,
-			0.5f,  0.5f,  0.5f, 0.8f, 0.2f, 0.8f,
-			0.5f, -0.5f,  0.5f, 0.2f, 0.8f, 0.8f,
+			0.5f, -0.5f, -0.5f, 1.0f, 0.0f,
+			0.5f,  0.5f, -0.5f, 1.0f, 1.0f,
+			0.5f,  0.5f,  0.5f, 0.0f, 1.0f,
+			0.5f, -0.5f,  0.5f, 0.0f, 0.0f,
 
 			// Bottom face
-			-0.5f, -0.5f, -0.5f, 0.8f, 0.8f, 0.2f,
-			 0.5f, -0.5f, -0.5f, 0.2f, 0.8f, 0.2f,
-			 0.5f, -0.5f,  0.5f, 0.8f, 0.2f, 0.8f,
-			-0.5f, -0.5f,  0.5f, 0.2f, 0.8f, 0.8f,
+			-0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
+			 0.5f, -0.5f, -0.5f, 1.0f, 0.0f,
+			 0.5f, -0.5f,  0.5f, 1.0f, 1.0f,
+			-0.5f, -0.5f,  0.5f, 0.0f, 1.0f,
 
 			// Top face
-			-0.5f, 0.5f, -0.5f, 0.8f, 0.8f, 0.2f,
-			 0.5f, 0.5f, -0.5f, 0.2f, 0.8f, 0.2f,
-			 0.5f, 0.5f,  0.5f, 0.8f, 0.2f, 0.8f,
-			-0.5f, 0.5f,  0.5f, 0.2f, 0.8f, 0.8f
+			-0.5f, 0.5f, -0.5f, 0.0f, 1.0f,
+			 0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+			 0.5f, 0.5f,  0.5f, 1.0f, 0.0f,
+			-0.5f, 0.5f,  0.5f, 0.0f, 0.0f
 		};
 		// Create a vertex buffer
-		std::shared_ptr<MK::VertexBuffer> vertexBuffer;
+		MK::Ref<MK::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(MK::VertexBuffer::Create(cubeVertices, sizeof(cubeVertices)));
 		// Create the vertex buffer layout
 		MK::BufferLayout layout = {
 			{ MK::ShaderDataType::Float3, "a_Position" },
-			{ MK::ShaderDataType::Float3, "a_Color" }
+			{ MK::ShaderDataType::Float2, "a_TexCoord" }
 		};
 		// Set the vertex buffer layout and add it to vertex array
 		vertexBuffer->SetLayout(layout);
@@ -78,7 +79,7 @@ public:
 			16, 17, 18, 18, 19, 16, // Bottom face
 			20, 21, 22, 22, 23, 20 // Top face
 		};
-		std::shared_ptr<MK::IndexBuffer> indexBuffer;
+		MK::Ref<MK::IndexBuffer> indexBuffer;
 		indexBuffer.reset(MK::IndexBuffer::Create(cubeIndicies, sizeof(cubeIndicies) / sizeof(uint32_t)));
 		// Add the index buffer to the vertex array
 		m_VertexArray->SetIndexBuffer(indexBuffer);
@@ -87,18 +88,16 @@ public:
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec3 a_Color;
+			layout(location = 1) in vec2 a_TexCoord;
 
 			uniform mat4 u_ViewProjection;
 			uniform mat4 u_ModelMatrix;
 
-			out vec3 v_Position;
-			out vec3 v_Color;
+			out vec2 v_TexCoord;
 
 			void main()
 			{
-				v_Position = a_Position;
-				v_Color = a_Color;
+				v_TexCoord = a_TexCoord;
 				gl_Position = u_ViewProjection * u_ModelMatrix * vec4(a_Position, 1.0);
 			}
 		)";
@@ -108,15 +107,23 @@ public:
 			
 			out vec4 color;
 
-			in vec3 v_Color;
-			in vec3 v_Position;
+			in vec2 v_TexCoord;
+
+			uniform sampler2D u_Texture;
+
 			void main()
 			{
-				color = vec4(v_Color, 1.0);
+				color = texture(u_Texture, v_TexCoord);
+				//color = vec4(v_TexCoord, 0.0, 1.0);
 			}
 		)";
 
-		m_Shader.reset(new MK::Shader(vertexSrc, fragmentSrc));
+		m_Shader.reset(MK::Shader::Create(vertexSrc, fragmentSrc));
+
+		m_Texture = MK::Texture2D::Create("assets/textures/stonebrick.png");
+
+		//std::dynamic_pointer_cast<MK::OpenGLShader>(m_Shader)->Bind();
+		//std::dynamic_pointer_cast<MK::OpenGLShader>(m_Shader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(MK::Timestep ts) override
@@ -136,17 +143,19 @@ public:
 			direction = MK::Camera_Movement::DOWN;
 
 		m_Camera.ProcessKeyboard(direction, ts);
+
 		MK::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		MK::RenderCommand::Clear();
 
 
 		MK::Renderer::BeginScene(m_Camera);
+		// Large cuboid
 		glm::mat4 model = glm::scale(glm::mat4(1.f), glm::vec3(10.f, 0.2f, 10.0f));
-		MK::Renderer::Submit(m_Shader, m_VertexArray, model);
-
+		//MK::Renderer::Submit(m_Shader, m_VertexArray, model);
+		// Cube
 		model = glm::mat4(1.f);
+		m_Texture->Bind();
 		MK::Renderer::Submit(m_Shader, m_VertexArray, model);
-
 		MK::Renderer::EndScene();
 	}
 
@@ -192,13 +201,17 @@ public:
 	}
 
 private:
-	std::shared_ptr<MK::Shader> m_Shader;
-	std::shared_ptr<MK::VertexArray> m_VertexArray;
+	MK::Ref<MK::Shader> m_Shader;
+	MK::Ref<MK::VertexArray> m_VertexArray;
+
+	MK::Ref<MK::Texture2D> m_Texture;
 
 	bool FirstMouse = true;
 	float LastX = 1280.f / 2.f;
 	float LastY = 780.f / 2.f;
 	
+
+
 	MK::PerspectiveCamera m_Camera;
 };
 

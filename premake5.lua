@@ -16,6 +16,7 @@ IncludeDir["GLFW"] = "MakeEngine/vendor/GLFW/include"
 IncludeDir["Glad"] = "MakeEngine/vendor/Glad/include"
 IncludeDir["ImGui"] = "MakeEngine/vendor/imgui"
 IncludeDir["glm"] = "MakeEngine/vendor/glm"
+IncludeDir["stb_image"] = "MakeEngine/vendor/stb_image"
 
 
 group "Dependencies"
@@ -43,6 +44,8 @@ project "MakeEngine"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl",
 	}
@@ -59,7 +62,8 @@ project "MakeEngine"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	links

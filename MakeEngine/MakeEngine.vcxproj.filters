@@ -7,6 +7,9 @@
     <Filter Include="src\MakeEngine">
       <UniqueIdentifier>{90A93B8E-7C77-2F94-650B-A0BA51780BF9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\MakeEngine\Core">
+      <UniqueIdentifier>{E8474D36-54A9-2A44-DD16-71F649776103}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\MakeEngine\Events">
       <UniqueIdentifier>{74F3E003-E05F-9CFE-A953-345C157FBE66}</UniqueIdentifier>
     </Filter>
@@ -46,6 +49,9 @@
     <Filter Include="vendor\glm\glm\gtx">
       <UniqueIdentifier>{B3A6A76B-9F8A-68C1-08EB-6214F4ED5243}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vendor\stb_image">
+      <UniqueIdentifier>{0DA0BA59-F998-D9AB-22CB-BE300E23B9B7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\MakeEngine.h">
@@ -56,6 +62,9 @@
     </ClInclude>
     <ClInclude Include="src\MakeEngine\Core.h">
       <Filter>src\MakeEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MakeEngine\Core\Timestep.h">
+      <Filter>src\MakeEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\MakeEngine\EntryPoint.h">
       <Filter>src\MakeEngine</Filter>
@@ -99,6 +108,12 @@
     <ClInclude Include="src\MakeEngine\Renderer\GraphicsContext.h">
       <Filter>src\MakeEngine\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\MakeEngine\Renderer\PerspectiveCamera.h">
+      <Filter>src\MakeEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MakeEngine\Renderer\RenderCommand.h">
+      <Filter>src\MakeEngine\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\MakeEngine\Renderer\Renderer.h">
       <Filter>src\MakeEngine\Renderer</Filter>
     </ClInclude>
@@ -106,6 +121,9 @@
       <Filter>src\MakeEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\MakeEngine\Renderer\Shader.h">
+      <Filter>src\MakeEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MakeEngine\Renderer\Texture.h">
       <Filter>src\MakeEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\MakeEngine\Renderer\VertexArray.h">
@@ -118,6 +136,15 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
@@ -1377,10 +1404,9 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\MakeEngine\Renderer\RenderCommand.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
-    <ClInclude Include="src\MakeEngine\Renderer\PerspectiveCamera.h" />
-    <ClInclude Include="src\MakeEngine\Core\Timestep.h" />
+    <ClInclude Include="vendor\stb_image\stb_image.h">
+      <Filter>vendor\stb_image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\MakeEngine\Application.cpp">
@@ -1404,10 +1430,22 @@
     <ClCompile Include="src\MakeEngine\Renderer\Buffer.cpp">
       <Filter>src\MakeEngine\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\MakeEngine\Renderer\PerspectiveCamera.cpp">
+      <Filter>src\MakeEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MakeEngine\Renderer\RenderCommand.cpp">
+      <Filter>src\MakeEngine\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\MakeEngine\Renderer\Renderer.cpp">
       <Filter>src\MakeEngine\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\MakeEngine\Renderer\RendererAPI.cpp">
+      <Filter>src\MakeEngine\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\MakeEngine\Renderer\Shader.cpp">
+      <Filter>src\MakeEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MakeEngine\Renderer\Texture.cpp">
       <Filter>src\MakeEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\MakeEngine\Renderer\VertexArray.cpp">
@@ -1417,6 +1455,15 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
@@ -1431,9 +1478,8 @@
     <ClCompile Include="src\mkpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\MakeEngine\Renderer\RenderCommand.cpp" />
-    <ClCompile Include="src\MakeEngine\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
-    <ClCompile Include="src\MakeEngine\Renderer\PerspectiveCamera.cpp" />
+    <ClCompile Include="vendor\stb_image\stb_image.cpp">
+      <Filter>vendor\stb_image</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
