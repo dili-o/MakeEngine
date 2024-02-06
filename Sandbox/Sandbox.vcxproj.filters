@@ -30,4 +30,8 @@
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\Texture.vs" />
+    <None Include="assets\shaders\Texture.fs" />
+  </ItemGroup>
 </Project>

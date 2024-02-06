@@ -1,20 +1,48 @@
 #include "mkpch.h"
 #include "OpenGLShader.h"
 
-//#include <glad/glad.h>
-
 #include <glm/gtc/type_ptr.hpp>
 
 namespace MK {
 
-	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc)
+	OpenGLShader::OpenGLShader(const char* vertexSrc, const char* fragmentSrc)
 	{
+		// Retrieve the shaders from their file
+		std::string vertexCode;
+		std::string fragmentCode;
+		std::ifstream vShaderFile;
+		std::ifstream fShaderFile;
+
+		// Ensure the ifstream objects can throw exceptions
+		vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+		fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+		try
+		{
+			// open files
+			vShaderFile.open(vertexSrc);
+			fShaderFile.open(fragmentSrc);
+			std::stringstream vShaderStream, fShaderStream;
+			// read file's buffer contents into streams
+			vShaderStream << vShaderFile.rdbuf();
+			fShaderStream << fShaderFile.rdbuf();
+			// close file handlers
+			vShaderFile.close();
+			fShaderFile.close();
+			// convert stream into string
+			vertexCode = vShaderStream.str();
+			fragmentCode = fShaderStream.str();
+		}
+		catch (std::ifstream::failure& e)
+		{
+			//MK_CORE_ERROR("ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ: {0}", e.what());
+		}
 		// Create an empty vertex shader handle
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
 		// Send the vertex shader source code to GL
 		// Note that std::string's .c_str is NULL character terminated.
-		const GLchar* source = vertexSrc.c_str();
+		const GLchar* source = vertexCode.c_str();
 		glShaderSource(vertexShader, 1, &source, 0);
 
 		// Compile the vertex shader
@@ -44,7 +72,7 @@ namespace MK {
 
 		// Send the fragment shader source code to GL
 		// Note that std::string's .c_str is NULL character terminated.
-		source = fragmentSrc.c_str();
+		source = fragmentCode.c_str();
 		glShaderSource(fragmentShader, 1, &source, 0);
 
 		// Compile the fragment shader
