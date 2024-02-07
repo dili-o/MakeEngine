@@ -33,5 +33,6 @@
   <ItemGroup>
     <None Include="assets\shaders\Texture.vs" />
     <None Include="assets\shaders\Texture.fs" />
+    <None Include="assets\shaders\TextureInstance.vs" />
   </ItemGroup>
 </Project>

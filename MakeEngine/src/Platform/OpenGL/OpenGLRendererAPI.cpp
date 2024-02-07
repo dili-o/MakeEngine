@@ -27,4 +27,9 @@ namespace MK {
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
 
+	void OpenGLRendererAPI::DrawInstance(const Ref<VertexArray>& vertexArray, int instanceCount)
+	{
+		glDrawElementsInstanced(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0, instanceCount);
+	}
+
 }

@@ -12,6 +12,7 @@ namespace MK {
 		virtual void Clear() override;
 
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) override;
+		virtual void DrawInstance(const Ref<VertexArray>& vertexArray, int instanceCount) override;
 	};
 
 

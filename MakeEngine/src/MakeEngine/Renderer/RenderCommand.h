@@ -26,6 +26,10 @@ namespace MK {
 		{
 			s_RendererAPI->DrawIndexed(vertexArray);
 		}
+		inline static void DrawInstance(const Ref<VertexArray>& vertexArray, int instanceCount)
+		{
+			s_RendererAPI->DrawInstance(vertexArray, instanceCount);
+		}
 	private:
 		static RendererAPI* s_RendererAPI;
 	};

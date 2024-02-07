@@ -15,6 +15,7 @@ namespace MK {
 		static void EndScene();
 
 		static void Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& modelMatrix = glm::mat4(1.0f));
+		static void Renderer::SubmitInstance(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, int instanceCount);
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	private:

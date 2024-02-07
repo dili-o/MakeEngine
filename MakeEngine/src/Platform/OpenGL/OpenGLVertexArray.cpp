@@ -53,17 +53,18 @@ namespace MK {
 		glBindVertexArray(m_RendererID);
 		vertexBuffer->Bind();
 
-		uint32_t index = 0;
 		const auto& layout = vertexBuffer->GetLayout();
 		for (const auto& element : layout)
 		{
 			glEnableVertexAttribArray(index + m_VertexBufferIndexOffset);
-			glVertexAttribPointer(index + m_VertexBufferIndexOffset,
+			glVertexAttribPointer(
+				index + m_VertexBufferIndexOffset,
 				element.GetComponentCount(),
 				ShaderDataTypeToOpenGLBaseType(element.Type),
 				element.Normalized ? GL_TRUE : GL_FALSE,
 				layout.GetStride(),
-				(const void*)(intptr_t)element.Offset);
+				(const void*)(intptr_t)element.Offset
+			);
 			index++;
 		}
 		m_VertexBuffers.push_back(vertexBuffer);
@@ -75,6 +76,32 @@ namespace MK {
 		indexBuffer->Bind();
 
 		m_IndexBuffer = indexBuffer;
+	}
+
+	void OpenGLVertexArray::AddInstanceBuffer(const Ref<VertexBuffer>& instanceBuffer)
+	{
+		MK_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout!");
+
+		glBindVertexArray(m_RendererID);
+		instanceBuffer->Bind();
+
+		const auto& layout = instanceBuffer->GetLayout();
+		for (const auto& element : layout)
+		{
+			glEnableVertexAttribArray(index + m_VertexBufferIndexOffset);
+			glVertexAttribPointer(
+				index + m_VertexBufferIndexOffset,
+				element.GetComponentCount(),
+				ShaderDataTypeToOpenGLBaseType(element.Type),
+				element.Normalized ? GL_TRUE : GL_FALSE,
+				layout.GetStride(),
+				(const void*)(intptr_t)element.Offset
+			);
+			glVertexAttribDivisor(index + m_VertexBufferIndexOffset, 1);
+			index++;
+		}
+		m_VertexBuffers.push_back(instanceBuffer);
+		glBindVertexArray(0);
 	}
 
 }

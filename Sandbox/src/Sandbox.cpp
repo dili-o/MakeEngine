@@ -1,4 +1,6 @@
 #include <MakeEngine.h>
+#include <glm/gtc/type_ptr.hpp>
+
 
 #include "imgui/imgui.h"
 //#include <Platform/OpenGL/OpenGLShader.h>
@@ -10,17 +12,21 @@ public:
 	ExampleLayer()
 		: Layer("Example"), m_Camera({ 0.0f, 1.f, 3.f })
 	{
-		
 		m_CubeMesh = MK::Mesh::Create();
 		m_CubeMesh->CreateTexturedCube();
+
+		int arraySize = (int)(sizeof(translations) / sizeof(glm::mat4));
+
+		m_CubeInstance = MK::MeshInstance::Create();
+		mat4ArrayToFloatArray(translations, arraySize, translationsArray);
+
+		m_CubeInstance->CreateInstance(m_CubeMesh->GetVertexArray(), translationsArray, arraySize);
+
+		m_InstanceShader.reset(MK::Shader::Create("assets/shaders/TextureInstance.vs", "assets/shaders/Texture.fs"));
 
 		m_Shader.reset(MK::Shader::Create("assets/shaders/Texture.vs", "assets/shaders/Texture.fs"));
 
 		m_Texture = MK::Texture2D::Create("assets/textures/stonebrick.png");
-
-		
-		//std::dynamic_pointer_cast<MK::OpenGLShader>(m_Shader)->Bind();
-		//std::dynamic_pointer_cast<MK::OpenGLShader>(m_Shader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(MK::Timestep ts) override
@@ -49,9 +55,10 @@ public:
 
 		// Cube
 		m_Texture->Bind();
-		glm::mat4 model = glm::mat4(1.f);
-		//model = glm::translate(model, glm::vec3(2.0f, 0.0f, 2.0f));
-		MK::Renderer::Submit(m_Shader, m_CubeMesh->GetVertexArray(), model);
+		//glm::mat4 model = glm::mat4(1.f);
+		//MK::Renderer::Submit(m_Shader, m_CubeMesh->GetVertexArray(), model);
+
+		MK::Renderer::SubmitInstance(m_InstanceShader, m_CubeInstance->GetVertexArray(), m_CubeInstance->GetInstanceCount());
 
 		MK::Renderer::EndScene();
 	}
@@ -97,11 +104,38 @@ public:
 		return true;
 	}
 
+	void mat4ArrayToFloatArray(const glm::mat4* matrices, size_t numMatrices, float* floatArray) {
+		for (size_t i = 0; i < numMatrices; ++i) {
+			const float* matData = glm::value_ptr(matrices[i]);
+
+			// Copy the elements of the mat4 into the float array
+			for (size_t j = 0; j < 16; ++j) {
+				floatArray[i * 16 + j] = matData[j];
+			}
+		}
+	}
+
 private:
 	MK::Ref<MK::Shader> m_Shader;
 	MK::Ref<MK::Mesh> m_CubeMesh;
 	MK::Ref<MK::Texture2D> m_Texture;
 
+	MK::Ref<MK::Shader> m_InstanceShader;
+	MK::Ref<MK::MeshInstance> m_CubeInstance;
+	glm::mat4 translations[10] =
+	{
+		(glm::translate(glm::mat4(1.f), glm::vec3(0.f, 0.f, 0.f))),
+		(glm::translate(glm::mat4(1.f), glm::vec3(2.f, 2.f, 0.f))),
+		(glm::translate(glm::mat4(1.f), glm::vec3(0.f, 3.f, 0.f))),
+		(glm::translate(glm::mat4(1.f), glm::vec3(1.f, 0.f, 1.f))),
+		(glm::translate(glm::mat4(1.f), glm::vec3(2.f, 0.f, 0.f))),
+		(glm::translate(glm::mat4(1.f), glm::vec3(3.f, 5.f, 2.f))),
+		(glm::translate(glm::mat4(1.f), glm::vec3(4.f, 2.f, 4.f))),
+		(glm::translate(glm::mat4(1.f), glm::vec3(5.f, 0.f, 6.f))),
+		(glm::translate(glm::mat4(1.f), glm::vec3(6.f, 2.f, 8.f))),
+		(glm::translate(glm::mat4(1.f), glm::vec3(7.f, 1.f, 10.f)))
+	};
+	float translationsArray[10 * 16];
 	bool FirstMouse = true;
 	float LastX = 1280.f / 2.f;
 	float LastY = 780.f / 2.f;

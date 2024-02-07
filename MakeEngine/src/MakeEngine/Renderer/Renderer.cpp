@@ -30,4 +30,13 @@ namespace MK {
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
 	}
+
+	void Renderer::SubmitInstance(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, int instanceCount)
+	{
+		shader->Bind();
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
+
+		vertexArray->Bind();
+		RenderCommand::DrawInstance(vertexArray, instanceCount);
+	}
 }
