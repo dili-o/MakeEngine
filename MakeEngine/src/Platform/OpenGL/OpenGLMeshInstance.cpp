@@ -8,8 +8,6 @@ namespace MK {
 		m_InstanceCount = instanceCount;
 		m_VertexArray = vertexArray;
 
-        MK_CORE_WARN("Array size: {0}", sizeof(translations));
-
         MK::Ref<MK::VertexBuffer> instanceBuffer;
         instanceBuffer.reset(VertexBuffer::Create(translations, instanceCount * (4 * 4 * sizeof(float))));
 

@@ -15,12 +15,20 @@ public:
 		m_CubeMesh = MK::Mesh::Create();
 		m_CubeMesh->CreateTexturedCube();
 
-		int arraySize = (int)(sizeof(translations) / sizeof(glm::mat4));
+		int amount = 10000;
+		glm::mat4* positions = new glm::mat4[amount];
+		for (int row = 0; row < 100; row++)
+		{
+			int index = 100 * row;
+			for (int col = 0; col < 100; col++)
+				positions[index + col] = glm::translate(glm::mat4(1.f), glm::vec3(row, 0.f, col));
+		}
+		mat4ArrayToFloatArray(positions, amount, positionsArray);
+
 
 		m_CubeInstance = MK::MeshInstance::Create();
-		mat4ArrayToFloatArray(translations, arraySize, translationsArray);
 
-		m_CubeInstance->CreateInstance(m_CubeMesh->GetVertexArray(), translationsArray, arraySize);
+		m_CubeInstance->CreateInstance(m_CubeMesh->GetVertexArray(), positionsArray, amount);
 
 		m_InstanceShader.reset(MK::Shader::Create("assets/shaders/TextureInstance.vs", "assets/shaders/Texture.fs"));
 
@@ -55,8 +63,9 @@ public:
 
 		// Cube
 		m_Texture->Bind();
-		//glm::mat4 model = glm::mat4(1.f);
-		//MK::Renderer::Submit(m_Shader, m_CubeMesh->GetVertexArray(), model);
+		glm::mat4 model = glm::mat4(1.f);
+		model = glm::translate(model, glm::vec3(-4.f, 0.f, -4.f));
+		MK::Renderer::Submit(m_Shader, m_CubeMesh->GetVertexArray(), model);
 
 		MK::Renderer::SubmitInstance(m_InstanceShader, m_CubeInstance->GetVertexArray(), m_CubeInstance->GetInstanceCount());
 
@@ -122,20 +131,10 @@ private:
 
 	MK::Ref<MK::Shader> m_InstanceShader;
 	MK::Ref<MK::MeshInstance> m_CubeInstance;
-	glm::mat4 translations[10] =
-	{
-		(glm::translate(glm::mat4(1.f), glm::vec3(0.f, 0.f, 0.f))),
-		(glm::translate(glm::mat4(1.f), glm::vec3(2.f, 2.f, 0.f))),
-		(glm::translate(glm::mat4(1.f), glm::vec3(0.f, 3.f, 0.f))),
-		(glm::translate(glm::mat4(1.f), glm::vec3(1.f, 0.f, 1.f))),
-		(glm::translate(glm::mat4(1.f), glm::vec3(2.f, 0.f, 0.f))),
-		(glm::translate(glm::mat4(1.f), glm::vec3(3.f, 5.f, 2.f))),
-		(glm::translate(glm::mat4(1.f), glm::vec3(4.f, 2.f, 4.f))),
-		(glm::translate(glm::mat4(1.f), glm::vec3(5.f, 0.f, 6.f))),
-		(glm::translate(glm::mat4(1.f), glm::vec3(6.f, 2.f, 8.f))),
-		(glm::translate(glm::mat4(1.f), glm::vec3(7.f, 1.f, 10.f)))
-	};
-	float translationsArray[10 * 16];
+	
+
+	float positionsArray[10000 * 16];
+
 	bool FirstMouse = true;
 	float LastX = 1280.f / 2.f;
 	float LastY = 780.f / 2.f;
