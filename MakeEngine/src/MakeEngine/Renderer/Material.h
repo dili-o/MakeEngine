@@ -14,6 +14,7 @@ namespace MK {
 		void Bind()
 		{
 			m_Texture->Bind();
+			m_Shader->UploadUniformInt("u_Texture", m_Texture->GetSlot());
 		}
 
 		static Ref<Material> Create(const Ref<Shader> shader, const Ref<Texture> texture);
