@@ -21,22 +21,24 @@ namespace MK {
 	{
 	}
 
-	void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& modelMatrix )
+	void Renderer::Submit(const Ref<Shader>& shader, const Ref<Mesh>& mesh, const glm::mat4& modelMatrix )
 	{
 		shader->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ModelMatrix", modelMatrix);
 
-		vertexArray->Bind();
-		RenderCommand::DrawIndexed(vertexArray);
+		mesh->GetVertexArray()->Bind();
+		mesh->GetMaterial()->Bind();
+		RenderCommand::DrawIndexed(mesh->GetVertexArray());
 	}
 
-	void Renderer::SubmitInstance(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, int instanceCount)
+	void Renderer::SubmitInstance(const Ref<Shader>& shader, const Ref<Mesh>& mesh, int instanceCount)
 	{
 		shader->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
 
-		vertexArray->Bind();
-		RenderCommand::DrawInstance(vertexArray, instanceCount);
+		mesh->GetVertexArray()->Bind();
+		mesh->GetMaterial()->Bind();
+		RenderCommand::DrawInstance(mesh->GetVertexArray(), instanceCount);
 	}
 }

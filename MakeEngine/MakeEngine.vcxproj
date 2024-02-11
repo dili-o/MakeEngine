@@ -161,8 +161,8 @@
     <ClInclude Include="src\MakeEngine\MouseButtonCodes.h" />
     <ClInclude Include="src\MakeEngine\Renderer\Buffer.h" />
     <ClInclude Include="src\MakeEngine\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\MakeEngine\Renderer\Material.h" />
     <ClInclude Include="src\MakeEngine\Renderer\Mesh.h" />
-    <ClInclude Include="src\MakeEngine\Renderer\MeshInstance.h" />
     <ClInclude Include="src\MakeEngine\Renderer\PerspectiveCamera.h" />
     <ClInclude Include="src\MakeEngine\Renderer\RenderCommand.h" />
     <ClInclude Include="src\MakeEngine\Renderer\Renderer.h" />
@@ -173,8 +173,8 @@
     <ClInclude Include="src\MakeEngine\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLMaterial.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLMesh.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLMeshInstance.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
@@ -607,8 +607,8 @@
     <ClCompile Include="src\MakeEngine\LayerStack.cpp" />
     <ClCompile Include="src\MakeEngine\Log.cpp" />
     <ClCompile Include="src\MakeEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\MakeEngine\Renderer\Material.cpp" />
     <ClCompile Include="src\MakeEngine\Renderer\Mesh.cpp" />
-    <ClCompile Include="src\MakeEngine\Renderer\MeshInstance.cpp" />
     <ClCompile Include="src\MakeEngine\Renderer\PerspectiveCamera.cpp" />
     <ClCompile Include="src\MakeEngine\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\MakeEngine\Renderer\Renderer.cpp" />
@@ -618,8 +618,8 @@
     <ClCompile Include="src\MakeEngine\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLMaterial.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLMesh.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLMeshInstance.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />

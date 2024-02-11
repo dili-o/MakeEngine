@@ -23,7 +23,6 @@
 #include "MakeEngine/Renderer/Texture.h"
 #include "MakeEngine/Renderer/VertexArray.h"
 #include "MakeEngine/Renderer/Mesh.h"
-#include "MakeEngine/Renderer/MeshInstance.h"
 
 #include "MakeEngine/Renderer/PerspectiveCamera.h"
 // ------------------------------------

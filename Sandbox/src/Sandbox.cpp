@@ -12,8 +12,7 @@ public:
 	ExampleLayer()
 		: Layer("Example"), m_Camera({ 0.0f, 1.f, 3.f })
 	{
-		m_CubeMesh = MK::Mesh::Create();
-		m_CubeMesh->CreateTexturedCube();
+		
 
 		int amount = 10000;
 		glm::mat4* positions = new glm::mat4[amount];
@@ -25,16 +24,23 @@ public:
 		}
 		mat4ArrayToFloatArray(positions, amount, positionsArray);
 
+		m_CubeMesh = MK::Mesh::Create();
+		m_CubeMesh->CreateTexturedCube();
+		m_CubeMesh->CreateInstance(positionsArray, amount);
 
-		m_CubeInstance = MK::MeshInstance::Create();
+		//m_CubeInstance = MK::MeshInstance::Create();
 
-		m_CubeInstance->CreateInstance(m_CubeMesh->GetVertexArray(), positionsArray, amount);
+		//m_CubeInstance->CreateInstance(m_CubeMesh->GetVertexArray(), positionsArray, amount);
 
 		m_InstanceShader.reset(MK::Shader::Create("assets/shaders/TextureInstance.vs", "assets/shaders/Texture.fs"));
 
 		m_Shader.reset(MK::Shader::Create("assets/shaders/Texture.vs", "assets/shaders/Texture.fs"));
 
 		m_Texture = MK::Texture2D::Create("assets/textures/stonebrick.png");
+
+		m_Material = MK::Material::Create(m_Shader, m_Texture);
+
+		m_CubeMesh->SetMaterial(m_Material);
 	}
 
 	void OnUpdate(MK::Timestep ts) override
@@ -62,12 +68,11 @@ public:
 		MK::Renderer::BeginScene(m_Camera);
 
 		// Cube
-		m_Texture->Bind();
 		glm::mat4 model = glm::mat4(1.f);
 		model = glm::translate(model, glm::vec3(-4.f, 0.f, -4.f));
-		MK::Renderer::Submit(m_Shader, m_CubeMesh->GetVertexArray(), model);
+		MK::Renderer::Submit(m_Shader, m_CubeMesh, model);
 
-		MK::Renderer::SubmitInstance(m_InstanceShader, m_CubeInstance->GetVertexArray(), m_CubeInstance->GetInstanceCount());
+		MK::Renderer::SubmitInstance(m_InstanceShader, m_CubeMesh, m_CubeMesh->GetInstanceCount());
 
 		MK::Renderer::EndScene();
 	}
@@ -128,9 +133,10 @@ private:
 	MK::Ref<MK::Shader> m_Shader;
 	MK::Ref<MK::Mesh> m_CubeMesh;
 	MK::Ref<MK::Texture2D> m_Texture;
+	MK::Ref<MK::Material> m_Material;
 
 	MK::Ref<MK::Shader> m_InstanceShader;
-	MK::Ref<MK::MeshInstance> m_CubeInstance;
+	//MK::Ref<MK::MeshInstance> m_CubeInstance;
 	
 
 	float positionsArray[10000 * 16];

@@ -8,10 +8,10 @@ namespace MK
 	public:
 		OpenGLMesh() = default;
 		virtual ~OpenGLMesh() = default;
-		virtual void CreateTriangle() override;
-		virtual void CreateQuad() override;
 		virtual void CreateCube() override;
 		virtual void CreateTexturedCube() override;
+		virtual void CreateInstance(float* translations, unsigned int instanceCount) override;
+
 		inline virtual const Ref<VertexArray>& GetVertexArray() const override { return m_VertexArray; }
 	};
 }

@@ -2,15 +2,6 @@
 #include "OpenGLMesh.h"
 
 namespace MK {
-	void OpenGLMesh::CreateTriangle()
-	{
-
-	}
-
-	void OpenGLMesh::CreateQuad()
-	{
-	}
-
 	void OpenGLMesh::CreateCube()
 	{
 		
@@ -82,5 +73,22 @@ namespace MK {
 		indexBuffer.reset(MK::IndexBuffer::Create(cubeIndicies, sizeof(cubeIndicies) / sizeof(uint32_t)));
 		// Add the index buffer to the vertex array
 		m_VertexArray->SetIndexBuffer(indexBuffer);
+	}
+	void OpenGLMesh::CreateInstance(float* translations, unsigned int instanceCount)
+	{
+		m_InstanceCount = instanceCount;
+
+		MK::Ref<MK::VertexBuffer> instanceBuffer;
+		instanceBuffer.reset(VertexBuffer::Create(translations, instanceCount * (4 * 4 * sizeof(float))));
+
+		MK::BufferLayout layout = {
+			{ MK::ShaderDataType::Float4, "a_InstanceMatrix[0]" },
+			{ MK::ShaderDataType::Float4, "a_InstanceMatrix[1]" },
+			{ MK::ShaderDataType::Float4, "a_InstanceMatrix[2]" },
+			{ MK::ShaderDataType::Float4, "a_InstanceMatrix[3]" }
+		};
+
+		instanceBuffer->SetLayout(layout);
+		m_VertexArray->AddInstanceBuffer(instanceBuffer);
 	}
 }
