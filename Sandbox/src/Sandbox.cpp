@@ -28,10 +28,6 @@ public:
 		m_CubeMesh->CreateTexturedCube();
 		m_CubeMesh->CreateInstance(positionsArray, amount);
 
-		//m_CubeInstance = MK::MeshInstance::Create();
-
-		//m_CubeInstance->CreateInstance(m_CubeMesh->GetVertexArray(), positionsArray, amount);
-
 		m_InstanceShader.reset(MK::Shader::Create("assets/shaders/TextureInstance.vs", "assets/shaders/Texture.fs"));
 
 		m_Shader.reset(MK::Shader::Create("assets/shaders/Texture.vs", "assets/shaders/Texture.fs"));
@@ -70,7 +66,7 @@ public:
 		// Cube
 		glm::mat4 model = glm::mat4(1.f);
 		model = glm::translate(model, glm::vec3(-4.f, 0.f, -4.f));
-		MK::Renderer::Submit(m_Shader, m_CubeMesh, model);
+		//MK::Renderer::Submit(m_Shader, m_CubeMesh, model);
 
 		MK::Renderer::SubmitInstance(m_InstanceShader, m_CubeMesh, m_CubeMesh->GetInstanceCount());
 

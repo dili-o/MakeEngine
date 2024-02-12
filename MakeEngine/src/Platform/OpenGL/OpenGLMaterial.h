@@ -6,6 +6,6 @@ namespace MK {
 	class OpenGLMaterial : public Material
 	{
 	public:
-		OpenGLMaterial(const Ref<Shader> shader, const Ref<Texture> texture);
+		OpenGLMaterial(const Ref<Shader> shader, const Ref<Texture> diffuse);
 	};
 }

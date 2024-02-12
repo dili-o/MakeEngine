@@ -35,7 +35,7 @@ namespace MK {
 		}
 		catch (std::ifstream::failure& e)
 		{
-			//MK_CORE_ERROR("ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ: {0}", e.what());
+			MK_CORE_ERROR("ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ: {0}", e.what());
 		}
 		// Create an empty vertex shader handle
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -137,6 +137,8 @@ namespace MK {
 		// Always detach shaders after a successful link.
 		glDetachShader(program, vertexShader);
 		glDetachShader(program, fragmentShader);
+
+		QueryActiveUniforms(m_RendererID);
 	}
 
 	OpenGLShader::~OpenGLShader()
@@ -200,10 +202,27 @@ namespace MK {
 	{
 		if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
 			return m_UniformLocationCache[name];
+		MK_CORE_WARN("Uniform [{0}] does not exist!", name);
+		return -1;
+	}
 
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-		m_UniformLocationCache[name] = location;
-		return location;
+	void OpenGLShader::QueryActiveUniforms(GLuint rendererID)
+	// Loads all the uniforms and their locations into the uniform location cache
+	{
+		GLint numUniforms = 0;
+		glGetProgramiv(rendererID, GL_ACTIVE_UNIFORMS, &numUniforms);
+
+		for (int i = 0; i < numUniforms; ++i) {
+			constexpr GLsizei bufferSize = 256;
+			GLchar name[bufferSize];
+			GLsizei length;
+			GLint size;
+			GLenum type;
+
+			glGetActiveUniform(rendererID, GLuint(i), bufferSize, &length, &size, &type, name);
+			GLint location = glGetUniformLocation(m_RendererID, name);
+			m_UniformLocationCache[name] = location;
+		}
 	}
 
 }

@@ -11,19 +11,14 @@ namespace MK {
 	public:
 		virtual ~Material() = default;
 
-		void Bind()
-		{
-			m_Texture->Bind();
-			m_Shader->UploadUniformInt("u_Texture", m_Texture->GetSlot());
-		}
-
-		static Ref<Material> Create(const Ref<Shader> shader, const Ref<Texture> texture);
+		void Bind();
+		static Ref<Material> Create(const Ref<Shader> shader, const Ref<Texture> diffuse);
 
 	protected:
-		Material(const Ref<Shader> shader, const Ref<Texture> texture)
-			: m_Shader(shader), m_Texture(texture)
+		Material(const Ref<Shader> shader, const Ref<Texture> diffuse)
+			: m_Shader(shader), m_DiffuseTexture(diffuse)
 		{}
 		Ref<Shader> m_Shader;
-		Ref<Texture> m_Texture;
+		Ref<Texture> m_DiffuseTexture;
 	};
 }

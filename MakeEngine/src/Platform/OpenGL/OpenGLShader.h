@@ -26,10 +26,11 @@ namespace MK {
 		virtual void UploadUniformMat3(const std::string& name, const glm::mat3& matrix) override;
 		virtual void UploadUniformMat4(const std::string& name, const glm::mat4& matrix) override;
 	private:
+		GLint GetUniformLocation(const std::string& name);
+		void QueryActiveUniforms(GLuint rendererID);
+	private:
 		std::unordered_map<std::string, GLint> m_UniformLocationCache;
 		uint32_t m_RendererID;
-	private:
-		GLint GetUniformLocation(const std::string& name);
 	};
 
 }

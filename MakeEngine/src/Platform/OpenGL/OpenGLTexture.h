@@ -12,8 +12,10 @@ namespace MK {
 
 		virtual uint32_t GetWidth() const override { return m_Width; }
 		virtual uint32_t GetHeight() const override { return m_Height; }
+		inline virtual uint32_t GetSlot() const override;
 
-		virtual void Bind(uint32_t slot = 0) const override;
+
+		virtual void Bind(uint32_t slot = 0) override;
 	private:
 		std::string m_Path;
 		uint32_t m_Width, m_Height;

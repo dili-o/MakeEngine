@@ -40,8 +40,17 @@ namespace MK {
 		glDeleteTextures(1, &m_RendererID);
 	}
 
-	void OpenGLTexture2D::Bind(uint32_t slot) const
+	inline uint32_t OpenGLTexture2D::GetSlot() const
 	{
-		glBindTextureUnit(slot, m_RendererID);
+		// Convert m_Slot back to a normal unsinged int
+		return (uint32_t)(m_Slot - GL_TEXTURE0);
+	}
+
+	void OpenGLTexture2D::Bind(uint32_t slot)
+	{
+		// Convert m_Slot to the OpenGL texture slots
+		m_Slot = GL_TEXTURE0 + (int)slot;
+		glActiveTexture(m_Slot);
+		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 	}
 }
