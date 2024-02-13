@@ -36,7 +36,8 @@ public:
 		
 		//m_LightingShader.reset(MK::Shader::Create("assets/shaders/Mesh.vs", "assets/shaders/Mesh.fs"));
 		//m_LightingShader.reset(MK::Shader::Create("assets/shaders/Mesh.vs", "assets/shaders/DirectionalLight.fs"));
-		m_LightingShader.reset(MK::Shader::Create("assets/shaders/Mesh.vs", "assets/shaders/PointLight.fs"));
+		//m_LightingShader.reset(MK::Shader::Create("assets/shaders/Mesh.vs", "assets/shaders/PointLight.fs"));
+		m_LightingShader.reset(MK::Shader::Create("assets/shaders/Mesh.vs", "assets/shaders/SpotLight.fs"));
 
 		// Textures
 		m_Texture = MK::Texture2D::Create("assets/textures/stonebrick.png");
@@ -52,7 +53,10 @@ public:
 		// Lights
 		//m_Light = MK::WorldLight::Create(glm::vec3(0.1f), glm::vec3(0.7f), glm::vec3(1.0f), glm::vec3(50.f, 10.f, 50.f));
 		//m_Light = MK::DirectionalLight::Create(glm::vec3(0.1f), glm::vec3(0.7f), glm::vec3(1.0f), glm::vec3(0.0f, -1.f, 0.0f));
-		m_Light = MK::PointLight::Create(glm::vec3(0.1f), glm::vec3(0.7f), glm::vec3(1.0f), glm::vec3(50.f, 10.f, 50.f), 1.0f, 0.09f, 0.032f);
+		//m_Light = MK::PointLight::Create(glm::vec3(0.1f), glm::vec3(0.7f), glm::vec3(1.0f), glm::vec3(50.f, 10.f, 50.f), 1.0f, 0.09f, 0.032f);
+
+		m_Light = MK::SpotLight::Create(glm::vec3(0.1f), glm::vec3(0.7f), glm::vec3(1.0f), glm::vec3(50.f, 10.f, 50.f),glm::vec3(0.0f, -1.f, 0.0f),
+			1.0f, 0.09f, 0.032f, glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(17.5f)));
 	}
 
 	void OnUpdate(MK::Timestep ts) override

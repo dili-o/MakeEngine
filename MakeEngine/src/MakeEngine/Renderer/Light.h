@@ -65,4 +65,26 @@ namespace MK {
 		float m_Linear;
 		float m_Quadratic;
 	};
+
+	class SpotLight : public Light
+	{
+	public:
+		SpotLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position, glm::vec3 direction,
+			float constant, float linear, float quadratic, float cutOff, float outerCutOff)
+			:Light(ambient, diffuse, specular), m_Position(position), m_Constant(constant), m_Direction(direction),
+			m_Linear(linear), m_Quadratic(quadratic), m_CutOff(cutOff), m_OuterCutOff(outerCutOff)
+		{}
+
+		virtual void Bind(Ref<Shader> shader) override;
+		static Ref<SpotLight> Create(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position, glm::vec3 direction,
+			float constant, float linear, float quadratic, float cutOff, float outerCutOff);
+	private:
+		glm::vec3 m_Position;
+		glm::vec3 m_Direction;
+		float m_Constant;
+		float m_Linear;
+		float m_Quadratic;
+		float m_CutOff;
+		float m_OuterCutOff;
+	};
 }

@@ -41,5 +41,6 @@
     <None Include="assets\shaders\Mesh.vs" />
     <None Include="assets\shaders\DirectionalLight.fs" />
     <None Include="assets\shaders\PointLight.fs" />
+    <None Include="assets\shaders\SpotLight.fs" />
   </ItemGroup>
 </Project>

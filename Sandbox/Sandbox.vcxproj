@@ -152,6 +152,7 @@
     <None Include="assets\shaders\Mesh.fs" />
     <None Include="assets\shaders\Mesh.vs" />
     <None Include="assets\shaders\PointLight.fs" />
+    <None Include="assets\shaders\SpotLight.fs" />
     <None Include="assets\shaders\Texture.fs" />
     <None Include="assets\shaders\Texture.vs" />
     <None Include="assets\shaders\TextureInstance.vs" />
