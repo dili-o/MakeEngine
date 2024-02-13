@@ -148,6 +148,7 @@
     <Image Include="assets\textures\window.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\shaders\DirectionalLight.fs" />
     <None Include="assets\shaders\Mesh.fs" />
     <None Include="assets\shaders\Mesh.vs" />
     <None Include="assets\shaders\Texture.fs" />

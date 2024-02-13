@@ -4,21 +4,49 @@
 
 #include "glm/glm.hpp"
 
+
 namespace MK {
+	class Shader;
 	class Light
 	{
 	public:
 		~Light() = default;
 
-		Light(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position)
-			:m_Ambient(ambient), m_Diffuse(diffuse), m_Specualar(specular), m_Position(position)
+		Light(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular)
+			:m_Ambient(ambient), m_Diffuse(diffuse), m_Specular(specular)
 		{}
 
-		static Ref<Light> Create(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position);
-	public:
+		virtual void Bind(Ref<Shader> shader) = 0;
+	protected:
 		glm::vec3 m_Ambient;
 		glm::vec3 m_Diffuse;
-		glm::vec3 m_Specualar;
+		glm::vec3 m_Specular;
+	};
+
+	class DirectionalLight : public Light
+	{
+	public:
+		DirectionalLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 direction)
+			:Light(ambient, diffuse, specular), m_Direction(direction)
+		{}
+		virtual void Bind(Ref<Shader> shader) override;
+		static Ref<DirectionalLight> Create(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 direction);
+
+	private:
+		glm::vec3 m_Direction;
+	};
+
+	class WorldLight : public Light
+	{
+	public:
+		WorldLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position)
+			:Light(ambient, diffuse, specular), m_Position(position)
+		{}
+
+		virtual void Bind(Ref<Shader> shader) override;
+		static Ref<WorldLight> Create(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position);
+
+	private:
 		glm::vec3 m_Position;
 	};
 }

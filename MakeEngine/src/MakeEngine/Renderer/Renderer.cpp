@@ -38,10 +38,7 @@ namespace MK {
 		shader->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
 		shader->UploadUniformFloat3("u_ViewPos", m_SceneData->ViewPos);
 
-		shader->UploadUniformFloat3("light.position", m_SceneData->Light->m_Position);
-		shader->UploadUniformFloat3("light.ambient", m_SceneData->Light->m_Ambient);
-		shader->UploadUniformFloat3("light.diffuse", m_SceneData->Light->m_Diffuse);
-		shader->UploadUniformFloat3("light.specular", m_SceneData->Light->m_Specualar);
+		m_SceneData->Light->Bind(shader);
 
 		mesh->GetVertexArray()->Bind();
 		mesh->GetMaterial()->Bind();

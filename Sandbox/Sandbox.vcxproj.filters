@@ -39,5 +39,6 @@
     <None Include="assets\shaders\TextureInstance.vs" />
     <None Include="assets\shaders\Mesh.fs" />
     <None Include="assets\shaders\Mesh.vs" />
+    <None Include="assets\shaders\DirectionalLight.fs" />
   </ItemGroup>
 </Project>

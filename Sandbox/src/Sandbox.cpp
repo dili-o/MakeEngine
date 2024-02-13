@@ -33,7 +33,9 @@ public:
 		// Shaders
 		m_Shader.reset(MK::Shader::Create("assets/shaders/Texture.vs", "assets/shaders/Texture.fs"));
 		//m_InstanceShader.reset(MK::Shader::Create("assets/shaders/TextureInstance.vs", "assets/shaders/Texture.fs"));
-		m_LightingShader.reset(MK::Shader::Create("assets/shaders/Mesh.vs", "assets/shaders/Mesh.fs"));
+		// 
+		//m_LightingShader.reset(MK::Shader::Create("assets/shaders/Mesh.vs", "assets/shaders/Mesh.fs"));
+		m_LightingShader.reset(MK::Shader::Create("assets/shaders/Mesh.vs", "assets/shaders/DirectionalLight.fs"));
 
 		// Textures
 		m_Texture = MK::Texture2D::Create("assets/textures/stonebrick.png");
@@ -46,7 +48,8 @@ public:
 		m_LightingMaterial = MK::Material::Create(m_LightingShader, m_Texture, m_SpecTexture, 32.f);
 		m_LightingMesh->SetMaterial(m_LightingMaterial);
 
-		m_Light = MK::Light::Create(glm::vec3(0.1f), glm::vec3(0.7f), glm::vec3(1.0f), glm::vec3(50.f, 10.f, 50.f));
+		//m_Light = MK::WorldLight::Create(glm::vec3(0.1f), glm::vec3(0.7f), glm::vec3(1.0f), glm::vec3(50.f, 10.f, 50.f));
+		m_Light = MK::DirectionalLight::Create(glm::vec3(0.1f), glm::vec3(0.7f), glm::vec3(1.0f), glm::vec3(0.0f, -1.f, 0.0f));
 	}
 
 	void OnUpdate(MK::Timestep ts) override
