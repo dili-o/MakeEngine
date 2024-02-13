@@ -1,8 +1,6 @@
 #include "mkpch.h"
 #include "Renderer.h"
 
-#include "Platform/OpenGL/OpenGLShader.h"
-
 
 namespace MK {
 	Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
@@ -12,9 +10,11 @@ namespace MK {
 		RenderCommand::Init();
 	}
 
-	void Renderer::BeginScene(PerspectiveCamera& camera)
+	void Renderer::BeginScene(PerspectiveCamera& camera, Ref<Light> light)
 	{
 		m_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
+		m_SceneData->ViewPos = camera.Position;
+		m_SceneData->Light = light;
 	}
 
 	void Renderer::EndScene()
@@ -24,8 +24,8 @@ namespace MK {
 	void Renderer::Submit(const Ref<Shader>& shader, const Ref<Mesh>& mesh, const glm::mat4& modelMatrix )
 	{
 		shader->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ModelMatrix", modelMatrix);
+		shader->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
+		shader->UploadUniformMat4("u_ModelMatrix", modelMatrix);
 
 		mesh->GetVertexArray()->Bind();
 		mesh->GetMaterial()->Bind();
@@ -35,7 +35,13 @@ namespace MK {
 	void Renderer::SubmitInstance(const Ref<Shader>& shader, const Ref<Mesh>& mesh, int instanceCount)
 	{
 		shader->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
+		shader->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
+		shader->UploadUniformFloat3("u_ViewPos", m_SceneData->ViewPos);
+
+		shader->UploadUniformFloat3("light.position", m_SceneData->Light->m_Position);
+		shader->UploadUniformFloat3("light.ambient", m_SceneData->Light->m_Ambient);
+		shader->UploadUniformFloat3("light.diffuse", m_SceneData->Light->m_Diffuse);
+		shader->UploadUniformFloat3("light.specular", m_SceneData->Light->m_Specualar);
 
 		mesh->GetVertexArray()->Bind();
 		mesh->GetMaterial()->Bind();

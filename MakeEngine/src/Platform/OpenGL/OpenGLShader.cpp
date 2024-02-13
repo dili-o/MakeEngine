@@ -202,7 +202,7 @@ namespace MK {
 	{
 		if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
 			return m_UniformLocationCache[name];
-		MK_CORE_WARN("Uniform [{0}] does not exist!", name);
+		//MK_CORE_WARN("Uniform [{0}] does not exist!", name);
 		return -1;
 	}
 
@@ -222,6 +222,8 @@ namespace MK {
 			glGetActiveUniform(rendererID, GLuint(i), bufferSize, &length, &size, &type, name);
 			GLint location = glGetUniformLocation(m_RendererID, name);
 			m_UniformLocationCache[name] = location;
+
+			MK_CORE_WARN("Name: {0}", name);
 		}
 	}
 

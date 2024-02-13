@@ -29,10 +29,15 @@
     <Image Include="assets\textures\window.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="assets\textures\stonebrick_spec.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\Texture.vs" />
     <None Include="assets\shaders\Texture.fs" />
     <None Include="assets\shaders\TextureInstance.vs" />
+    <None Include="assets\shaders\Mesh.fs" />
+    <None Include="assets\shaders\Mesh.vs" />
   </ItemGroup>
 </Project>

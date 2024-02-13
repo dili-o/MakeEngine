@@ -12,8 +12,6 @@ public:
 	ExampleLayer()
 		: Layer("Example"), m_Camera({ 0.0f, 1.f, 3.f })
 	{
-		
-
 		int amount = 10000;
 		glm::mat4* positions = new glm::mat4[amount];
 		for (int row = 0; row < 100; row++)
@@ -23,20 +21,32 @@ public:
 				positions[index + col] = glm::translate(glm::mat4(1.f), glm::vec3(row, 0.f, col));
 		}
 		mat4ArrayToFloatArray(positions, amount, positionsArray);
-
+		// Meshes
 		m_CubeMesh = MK::Mesh::Create();
 		m_CubeMesh->CreateTexturedCube();
-		m_CubeMesh->CreateInstance(positionsArray, amount);
+		//m_CubeMesh->CreateInstance(positionsArray, amount);
 
-		m_InstanceShader.reset(MK::Shader::Create("assets/shaders/TextureInstance.vs", "assets/shaders/Texture.fs"));
+		m_LightingMesh = MK::Mesh::Create();
+		m_LightingMesh->CreateCube();
+		m_LightingMesh->CreateInstance(positionsArray, amount);
 
+		// Shaders
 		m_Shader.reset(MK::Shader::Create("assets/shaders/Texture.vs", "assets/shaders/Texture.fs"));
+		//m_InstanceShader.reset(MK::Shader::Create("assets/shaders/TextureInstance.vs", "assets/shaders/Texture.fs"));
+		m_LightingShader.reset(MK::Shader::Create("assets/shaders/Mesh.vs", "assets/shaders/Mesh.fs"));
 
+		// Textures
 		m_Texture = MK::Texture2D::Create("assets/textures/stonebrick.png");
+		m_SpecTexture = MK::Texture2D::Create("assets/textures/stonebrick_spec.png");
+		m_DefaultDiffuse = MK::Texture2D::Create("assets/textures/default_diff.png");
 
-		m_Material = MK::Material::Create(m_Shader, m_Texture);
-
+		// Materials
+		m_Material = MK::Material::Create(m_Shader, m_DefaultDiffuse);
 		m_CubeMesh->SetMaterial(m_Material);
+		m_LightingMaterial = MK::Material::Create(m_LightingShader, m_Texture, m_SpecTexture, 32.f);
+		m_LightingMesh->SetMaterial(m_LightingMaterial);
+
+		m_Light = MK::Light::Create(glm::vec3(0.1f), glm::vec3(0.7f), glm::vec3(1.0f), glm::vec3(50.f, 10.f, 50.f));
 	}
 
 	void OnUpdate(MK::Timestep ts) override
@@ -61,14 +71,16 @@ public:
 		MK::RenderCommand::Clear();
 
 
-		MK::Renderer::BeginScene(m_Camera);
+		MK::Renderer::BeginScene(m_Camera, m_Light);
 
 		// Cube
 		glm::mat4 model = glm::mat4(1.f);
-		model = glm::translate(model, glm::vec3(-4.f, 0.f, -4.f));
-		//MK::Renderer::Submit(m_Shader, m_CubeMesh, model);
+		model = glm::translate(model, glm::vec3(50.f, 10.f, 50.f));
+		model = glm::scale(model, glm::vec3(0.2f));
+		MK::Renderer::Submit(m_Shader, m_CubeMesh, model);
 
-		MK::Renderer::SubmitInstance(m_InstanceShader, m_CubeMesh, m_CubeMesh->GetInstanceCount());
+		//MK::Renderer::SubmitInstance(m_InstanceShader, m_CubeMesh, m_CubeMesh->GetInstanceCount());
+		MK::Renderer::SubmitInstance(m_LightingShader, m_LightingMesh, m_LightingMesh->GetInstanceCount());
 
 		MK::Renderer::EndScene();
 	}
@@ -127,13 +139,20 @@ public:
 
 private:
 	MK::Ref<MK::Shader> m_Shader;
-	MK::Ref<MK::Mesh> m_CubeMesh;
-	MK::Ref<MK::Texture2D> m_Texture;
-	MK::Ref<MK::Material> m_Material;
-
 	MK::Ref<MK::Shader> m_InstanceShader;
-	//MK::Ref<MK::MeshInstance> m_CubeInstance;
-	
+	MK::Ref<MK::Shader> m_LightingShader;
+
+	MK::Ref<MK::Mesh> m_CubeMesh;
+	MK::Ref<MK::Mesh> m_LightingMesh;
+
+	MK::Ref<MK::Texture2D> m_Texture;
+	MK::Ref<MK::Texture2D> m_SpecTexture;
+	MK::Ref<MK::Texture2D> m_DefaultDiffuse;
+
+	MK::Ref<MK::Material> m_Material;
+	MK::Ref<MK::Material> m_LightingMaterial;
+
+	MK::Ref<MK::Light> m_Light;
 
 	float positionsArray[10000 * 16];
 

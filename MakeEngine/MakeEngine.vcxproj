@@ -161,6 +161,7 @@
     <ClInclude Include="src\MakeEngine\MouseButtonCodes.h" />
     <ClInclude Include="src\MakeEngine\Renderer\Buffer.h" />
     <ClInclude Include="src\MakeEngine\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\MakeEngine\Renderer\Light.h" />
     <ClInclude Include="src\MakeEngine\Renderer\Material.h" />
     <ClInclude Include="src\MakeEngine\Renderer\Mesh.h" />
     <ClInclude Include="src\MakeEngine\Renderer\PerspectiveCamera.h" />
@@ -607,6 +608,7 @@
     <ClCompile Include="src\MakeEngine\LayerStack.cpp" />
     <ClCompile Include="src\MakeEngine\Log.cpp" />
     <ClCompile Include="src\MakeEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\MakeEngine\Renderer\Light.cpp" />
     <ClCompile Include="src\MakeEngine\Renderer\Material.cpp" />
     <ClCompile Include="src\MakeEngine\Renderer\Mesh.cpp" />
     <ClCompile Include="src\MakeEngine\Renderer\PerspectiveCamera.cpp" />

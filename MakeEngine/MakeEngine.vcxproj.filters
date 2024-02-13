@@ -1411,6 +1411,7 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLMesh.h" />
     <ClInclude Include="src\MakeEngine\Renderer\Material.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLMaterial.h" />
+    <ClInclude Include="src\MakeEngine\Renderer\Light.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\MakeEngine\Application.cpp">
@@ -1489,5 +1490,6 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLMesh.cpp" />
     <ClCompile Include="src\MakeEngine\Renderer\Material.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLMaterial.cpp" />
+    <ClCompile Include="src\MakeEngine\Renderer\Light.cpp" />
   </ItemGroup>
 </Project>
