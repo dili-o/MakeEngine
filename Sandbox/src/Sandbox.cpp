@@ -36,8 +36,9 @@ public:
 		
 		//m_LightingShader.reset(MK::Shader::Create("assets/shaders/Mesh.vs", "assets/shaders/Mesh.fs"));
 		//m_LightingShader.reset(MK::Shader::Create("assets/shaders/Mesh.vs", "assets/shaders/DirectionalLight.fs"));
+		//m_LightingShader.reset(MK::Shader::Create("assets/shaders/Mesh.vs", "assets/shaders/SpotLight.fs"));
 		//m_LightingShader.reset(MK::Shader::Create("assets/shaders/Mesh.vs", "assets/shaders/PointLight.fs"));
-		m_LightingShader.reset(MK::Shader::Create("assets/shaders/Mesh.vs", "assets/shaders/SpotLight.fs"));
+		m_LightingShader.reset(MK::Shader::Create("assets/shaders/Mesh.vs", "assets/shaders/MultipleLights.fs"));
 
 		// Textures
 		m_Texture = MK::Texture2D::Create("assets/textures/stonebrick.png");
@@ -51,11 +52,15 @@ public:
 		m_LightingMesh->SetMaterial(m_LightingMaterial);
 
 		// Lights
+		m_LightData.PointLights.push_back(MK::PointLight::Create(glm::vec3(0.1f), glm::vec3(0.7f), glm::vec3(1.0f), glm::vec3(25.0f, 10.f, 25.0f), 1.0f, 0.09f, 0.032f));
+		m_LightData.PointLights.push_back(MK::PointLight::Create(glm::vec3(0.1f, 0.0f, 0.0f), glm::vec3(0.7f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(75.0f, 10.f, 75.0f), 1.0f, 0.09f, 0.032f));
+		m_LightData.PointLights.push_back(MK::PointLight::Create(glm::vec3(0.0f, 0.1f, 0.0f), glm::vec3(0.0f, 0.7f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(25.0f, 10.f, 75.0f), 1.0f, 0.09f, 0.032f));
+		m_LightData.PointLights.push_back(MK::PointLight::Create(glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.0f, 0.0f, 0.7f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(75.0f, 10.f, 25.0f), 1.0f, 0.09f, 0.032f));
 		//m_Light = MK::WorldLight::Create(glm::vec3(0.1f), glm::vec3(0.7f), glm::vec3(1.0f), glm::vec3(50.f, 10.f, 50.f));
 		//m_Light = MK::DirectionalLight::Create(glm::vec3(0.1f), glm::vec3(0.7f), glm::vec3(1.0f), glm::vec3(0.0f, -1.f, 0.0f));
 		//m_Light = MK::PointLight::Create(glm::vec3(0.1f), glm::vec3(0.7f), glm::vec3(1.0f), glm::vec3(50.f, 10.f, 50.f), 1.0f, 0.09f, 0.032f);
 
-		m_Light = MK::SpotLight::Create(glm::vec3(0.1f), glm::vec3(0.7f), glm::vec3(1.0f), glm::vec3(50.f, 10.f, 50.f),glm::vec3(0.0f, -1.f, 0.0f),
+		m_Light = MK::SpotLight::Create(glm::vec3(0.1f), glm::vec3(0.7f), glm::vec3(1.0f), glm::vec3(50.f, 10.f, 50.f),glm::vec3(0.6f, -1.f, 0.5f),
 			1.0f, 0.09f, 0.032f, glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(17.5f)));
 	}
 
@@ -81,7 +86,8 @@ public:
 		MK::RenderCommand::Clear();
 
 
-		MK::Renderer::BeginScene(m_Camera, m_Light);
+		//MK::Renderer::BeginScene(m_Camera, m_Light);
+		MK::Renderer::BeginScene(m_Camera, &m_LightData);
 
 		// Cube
 		glm::mat4 model = glm::mat4(1.f);
@@ -163,6 +169,7 @@ private:
 	MK::Ref<MK::Material> m_LightingMaterial;
 
 	MK::Ref<MK::Light> m_Light;
+	MK::LightData m_LightData;
 
 	float positionsArray[10000 * 16];
 

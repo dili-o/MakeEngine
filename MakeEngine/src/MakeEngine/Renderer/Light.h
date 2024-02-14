@@ -15,8 +15,8 @@ namespace MK {
 		Light(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular)
 			:m_Ambient(ambient), m_Diffuse(diffuse), m_Specular(specular)
 		{}
-
-		virtual void Bind(Ref<Shader> shader) = 0;
+											  
+		virtual void Bind(Ref<Shader> shader, int index) = 0;
 	protected:
 		glm::vec3 m_Ambient;
 		glm::vec3 m_Diffuse;
@@ -29,7 +29,7 @@ namespace MK {
 		DirectionalLight(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 direction)
 			:Light(ambient, diffuse, specular), m_Direction(direction)
 		{}
-		virtual void Bind(Ref<Shader> shader) override;
+		virtual void Bind(Ref<Shader> shader, int index) override;
 		static Ref<DirectionalLight> Create(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 direction);
 
 	private:
@@ -43,7 +43,7 @@ namespace MK {
 			:Light(ambient, diffuse, specular), m_Position(position)
 		{}
 
-		virtual void Bind(Ref<Shader> shader) override;
+		virtual void Bind(Ref<Shader> shader, int index) override;
 		static Ref<WorldLight> Create(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position);
 
 	private:
@@ -57,7 +57,7 @@ namespace MK {
 			:Light(ambient, diffuse, specular), m_Position(position), m_Constant(constant), m_Linear(linear), m_Quadratic(quadratic)
 		{}
 
-		virtual void Bind(Ref<Shader> shader) override;
+		virtual void Bind(Ref<Shader> shader, int index) override;
 		static Ref<PointLight> Create(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position, float constant, float linear, float quadratic);
 	private:
 		glm::vec3 m_Position;
@@ -75,7 +75,7 @@ namespace MK {
 			m_Linear(linear), m_Quadratic(quadratic), m_CutOff(cutOff), m_OuterCutOff(outerCutOff)
 		{}
 
-		virtual void Bind(Ref<Shader> shader) override;
+		virtual void Bind(Ref<Shader> shader, int index) override;
 		static Ref<SpotLight> Create(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular, glm::vec3 position, glm::vec3 direction,
 			float constant, float linear, float quadratic, float cutOff, float outerCutOff);
 	private:

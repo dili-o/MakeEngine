@@ -42,5 +42,6 @@
     <None Include="assets\shaders\DirectionalLight.fs" />
     <None Include="assets\shaders\PointLight.fs" />
     <None Include="assets\shaders\SpotLight.fs" />
+    <None Include="assets\shaders\MultipleLights.fs" />
   </ItemGroup>
 </Project>
